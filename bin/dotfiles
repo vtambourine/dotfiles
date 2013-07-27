@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
 set -e
-set -u
 
 DOTFILES_DIRECTORY="${HOME}/dotfiles2"
-DOTFILES_GIT_REMOTE="http://github.com/vtambourine/dotfiles.git"
+DOTFILES_GIT_REMOTE="https://github.com/vtambourine/dotfiles.git"
 DOTFILES_GIT_BRANCH="blank"
-DOTFILES_BOOTSTRAP="${DOTFILES_GIT_REMOTE}/raw/${DOTFILES_GIT_BRANCH}/`basename $0`"
-DOTFILES_TARBALL_PATH="${DOTFILES_GIT_REMOTE}/archive/${DOTFILES_GIT_BRANCH}.tar.gz"
+DOTFILES_BOOTSTRAP="${DOTFILES_GIT_REMOTE%.git}/raw/${DOTFILES_GIT_BRANCH}/bin/`basename $0`"
+DOTFILES_TARBALL_PATH="${DOTFILES_GIT_REMOTE%.git}/archive/${DOTFILES_GIT_BRANCH}.tar.gz"
 
-source ./lib/utils.sh
+# Deploy dotfiles on the remote host if one is provided
+if [ $# -gt 0 ]; then
+    while [ $1 ]; do
+        ssh $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s"
+        shift
+    done
+    exit 0
+fi
 
 # If missing, download ad extract dotfiles repository
 if [[ ! -d ${DOTFILES_DIRECTORY} ]]; then
@@ -25,17 +31,22 @@ fi
 
 cd ${DOTFILES_DIRECTORY}
 
+source ./lib/utils.sh
+
 # Initialize the git repository if it's missing
 if ! is_git_repo; then
     printf "Initializing git repository...\n"
     git init
     git remote add origin ${DOTFILES_GIT_REMOTE}
-    #!/usr/bin/env bash¬
+    git fetch origin ${DOTFILES_GIT_BRANCH}
+    # Reset the index and working tree to the fetched HEAD
+    # (submodules are cloned in the subsequent sync step)
+    git reset --hard FETCH_HEAD
 fi
 
 # Update git repository if it's clean
 if is_clean_repo; then
-    git fetch origin master
+    git fetch origin ${DOTFILES_GIT_BRANCH}
     # Reset the index and working tree to the fetched HEAD
     # (submodules are cloned in the subsequent sync step)
     git reset --hard FETCH_HEAD

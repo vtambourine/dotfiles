@@ -7,7 +7,7 @@ is_git_repo() {
 
 # Test whether git repo is clean
 is_clean_repo() {
-    ! $(git diff-index --no-ext-diff --quiet HEAD -- &> /dev/null)
+    $(git diff-index --no-ext-diff --quiet HEAD --)
 }
 
 # Test whether a command exists
