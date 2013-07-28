@@ -8,10 +8,26 @@ DOTFILES_GIT_BRANCH="blank"
 DOTFILES_BOOTSTRAP="${DOTFILES_GIT_REMOTE%.git}/raw/${DOTFILES_GIT_BRANCH}/bin/`basename $0`"
 DOTFILES_TARBALL_PATH="${DOTFILES_GIT_REMOTE%.git}/archive/${DOTFILES_GIT_BRANCH}.tar.gz"
 
+# Processing options
+while : ; do
+    case "$1" in
+        -i | --identity) # Identity file to use in ssh connection
+            identity=$2
+            shift;
+            shift;;
+        -* | --*)
+            printf "Warning: Unknown option: $1" >&2
+            exit 1;;
+        *)
+            break;;
+    esac
+done
+
 # Deploy dotfiles on the remote host if one is provided
 if [ $# -gt 0 ]; then
     while [ $1 ]; do
-        ssh $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s"
+        printf "Deploying dotfiles on $1...\n"
+        ssh ${identity:+"-i $identity"} $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s"
         shift
     done
     exit 0
