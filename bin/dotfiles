@@ -58,16 +58,15 @@ if ! is_git_repo; then
     # Reset the index and working tree to the fetched HEAD
     # (submodules are cloned in the subsequent sync step)
     git reset --hard FETCH_HEAD
-fi
-
 # Update git repository if it's clean
-if is_clean_repo; then
+else if is_clean_repo; then
     git fetch origin ${DOTFILES_GIT_BRANCH}
     # Reset the index and working tree to the fetched HEAD
     # (submodules are cloned in the subsequent sync step)
     git reset --hard FETCH_HEAD
     # Remove any untracked files
     #git clean -fd
+# Prevent local changes from being deleted
 else
     printf "Git repository has uncommited changes.\n"
     printf "Please, commit or stash them before continue.\n"
