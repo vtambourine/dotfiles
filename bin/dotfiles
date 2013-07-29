@@ -59,7 +59,7 @@ if ! is_git_repo; then
     # (submodules are cloned in the subsequent sync step)
     git reset --hard FETCH_HEAD
 # Update git repository if it's clean
-else if is_clean_repo; then
+elif is_clean_repo; then
     git fetch origin ${DOTFILES_GIT_BRANCH}
     # Reset the index and working tree to the fetched HEAD
     # (submodules are cloned in the subsequent sync step)
