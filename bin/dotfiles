@@ -72,3 +72,23 @@ else
     printf "Please, commit or stash them before continue.\n"
     exit 1
 fi
+
+link() {
+    # Force create/replace the symlink.
+    ln -fs "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
+}
+
+mirrorfiles() {
+    # Force remove the vim directory if it's already there.
+    if [ -e "${HOME}/.vim" ]; then
+        rm -rf "${HOME}/.vim"
+    fi
+
+    # Create the necessary symbolic links between the `.dotfiles` and `HOME`
+    link "vim"                ".vim"
+    link "vim/vimrc"          ".vimrc"
+
+    printf "Dotfiles update complete!\n"
+}
+
+mirrorfiles
