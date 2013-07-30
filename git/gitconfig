@@ -98,6 +98,8 @@
 
 [diff]
     tool = vimdiff
+    # Do not show any source or destination prefix
+    noprefix = false
 
 [difftool]
     prompt = false
