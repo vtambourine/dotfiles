@@ -2,12 +2,12 @@
 [alias]
     # https://git.wiki.kernel.org/articles/a/l/i/Aliases.html
 
-    # `git remote prune origin`: remove remote-tracking branches that were deleted from the remote repo
-    # `git gc`: cleanup unnecessary files and optimize the local repository
-    # `git clean -df`: remove untracked files and directories from the working tree
-    # `git stash clear`: remove all stashed states
-    trim = !git remote prune origin && git gc
-    cleanup = !git clean -df && git stash clear
+    # SVN-like shorthands
+    co = checkout
+    st = status
+    di = diff
+    br = branch
+    ci = commit
 
     # View the current working tree status using the short format
     s = status -s
@@ -40,12 +40,16 @@
     # Show the diff between the latest commit and the current state
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    df = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
     # Diff what is staged for the next commit
-    diffc = diff --cached
+    dic = diff --cached
     # Diff overview
-    diffst = diff --stat
+    dis = diff --stat
 
+    # Custom graph log (append any tree-ish)
+    g = log --graph --decorate --pretty=nice --abbrev-commit
+    # Custom graph log for all branches
+    ga = log --graph --decorate --pretty=nice --abbrev-commit --branches=* --all
     # Custom graph log (append any tree-ish)
     graph = log --pretty=nice --date-order --graph
     # Custom graph log for all branches
@@ -65,6 +69,13 @@
     who = shortlog --numbered --summary --email --no-merges --since="3 months"
     # Credit an author on the latest commit
     credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }g f"
+
+    # `git remote prune origin`: remove remote-tracking branches that were deleted from the remote repo
+    # `git gc`: cleanup unnecessary files and optimize the local repository
+    # `git clean -df`: remove untracked files and directories from the working tree
+    # `git stash clear`: remove all stashed states
+    trim = !git remote prune origin && git gc
+    cleanup = !git clean -df && git stash clear
 
 [apply]
     # Detect whitespace errors when applying a patch
@@ -86,7 +97,7 @@
     helper = osxkeychain
 
 [diff]
-    tool = mvimdiff
+    tool = vimdiff
 
 [difftool]
     prompt = false
@@ -95,6 +106,12 @@
     # color opts: normal, black, red, green, yellow, blue, magenta, cyan, or white
     ui = auto
     interactive = auto
+
+[pretty]
+    # tut: http://gitimmersion.com/lab_10.html
+    # ref: http://linux.die.net/man/1/git-log
+    # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+    nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
 
 # URL shorthands
 [url "git@github.com:"]
@@ -109,9 +126,3 @@
     pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
     insteadOf = "gist:"
-
-[pretty]
-    # tut: http://gitimmersion.com/lab_10.html
-    # ref: http://linux.die.net/man/1/git-log
-    # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
-    nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"

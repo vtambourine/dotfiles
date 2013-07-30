@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Make vim the default editor
+export EDITOR="vim"
+
+# Localization settings
+export LC_ALL="ru_RU.UTF-8"
+export LANG="ru_RU"
+
+# Larger bash history (allow 32³ entries; default is 500)
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+# Ignore duplicate commands in the history
+export HISTCONTROL=ignoredups
+# Make some commands not show up in history
+export HISTIGNORE="ls:ls *:cd:cd -:pwd:exit:date:* --help"
+
+# Link Homebrew casks in `/Applications` rather than `~/Applications`
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Make new shells get the history lines from all previous
+# shells instead of the default "last window closed" history
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"

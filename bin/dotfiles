@@ -2,7 +2,7 @@
 
 set -e
 
-DOTFILES_DIRECTORY="${HOME}/dotfiles2"
+DOTFILES_DIRECTORY="${HOME}/.dotfiles"
 DOTFILES_GIT_REMOTE="https://github.com/vtambourine/dotfiles.git"
 DOTFILES_GIT_BRANCH="blank"
 DOTFILES_BOOTSTRAP="${DOTFILES_GIT_REMOTE%.git}/raw/${DOTFILES_GIT_BRANCH}/bin/`basename $0`"
@@ -16,7 +16,7 @@ while : ; do
             shift;
             shift;;
         -* | --*)
-            printf "Warning: Unknown option: $1" >&2
+            printf "$(tput setaf 136)! Warning: Unknown option: $1$(tput sgr0)\n" >&2
             exit 1;;
         *)
             break;;
@@ -26,7 +26,7 @@ done
 # Deploy dotfiles on the remote host if one is provided
 if [ $# -gt 0 ]; then
     while [ $1 ]; do
-        printf "Deploying dotfiles on $1...\n"
+	    printf "$(tput setaf 7)Deploying dotfiles on $1...$(tput sgr0)\n"
         ssh ${identity:+"-i $identity"} $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s"
         shift
     done
@@ -35,7 +35,7 @@ fi
 
 # If missing, download ad extract dotfiles repository
 if [[ ! -d ${DOTFILES_DIRECTORY} ]]; then
-    printf "Downloading dotfiles...\n"
+    printf "$(tput setaf 7)Downloading dotfiles...$(tput sgr0)\n"
     mkdir ${DOTFILES_DIRECTORY}
     # Get the tarball
     curl -fsSLo ${HOME}/dotfiles.tar.gz ${DOTFILES_TARBALL_PATH} || true
@@ -51,7 +51,7 @@ source ./lib/utils.sh
 
 # Initialize the git repository if it's missing
 if ! is_git_repo; then
-    printf "Initializing git repository...\n"
+    e_header "Initializing git repository..."
     git init
     git remote add origin ${DOTFILES_GIT_REMOTE}
     git fetch origin ${DOTFILES_GIT_BRANCH}
@@ -68,8 +68,8 @@ elif is_clean_repo; then
     #git clean -fd
 # Prevent local changes from being deleted
 else
-    printf "Git repository has uncommited changes.\n"
-    printf "Please, commit or stash them before continue.\n"
+    e_error "Git repository has uncommited changes."
+    e_error "Please, commit or stash them before continue."
     exit 1
 fi
 
@@ -93,14 +93,14 @@ mirrorfiles() {
     # directory. The `bash_profile` sources other files directly from the
     # `.dotfiles` repository.
     link "bash/bashrc"        ".bashrc"
-    link "bash/bash_profile"  ".bash_profile"
+    link "bash/profile"       ".bash_profile"
     link "bash/inputrc"       ".inputrc"
     link "vim"                ".vim"
     link "vim/vimrc"          ".vimrc"
     link "git/gitattributes"  ".gitattributes"
     link "git/gitignore"      ".gitignore"
 
-    printf "Dotfiles update complete!\n"
+    e_success "Dotfiles update complete!"
 }
 
 mirrorfiles
