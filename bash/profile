@@ -16,7 +16,6 @@ declare -a files=(
 # If these files are readable, source them
 for index in ${!files[*]}
 do
-	echo ${files[$index]}
     if [[ -r ${files[$index]} ]]; then
         source ${files[$index]}
     fi
