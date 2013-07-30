@@ -3,9 +3,9 @@
 DOTFILES_DIR=$HOME/dotfiles2
 
 declare -a files=(
-    $DOTFILES_DIR/bash/bash_options # Options
-    $DOTFILES_DIR/bash/bash_exports # Exports
-    $DOTFILES_DIR/bash/bash_aliases # Aliases
+    $DOTFILES_DIR/bash/options # Options
+    $DOTFILES_DIR/bash/exports # Exports
+    $DOTFILES_DIR/bash/aliases # Aliases
     $DOTFILES_DIR/bash/functions/* # Functions
     $DOTFILES_DIR/bash/bash_prompt # Custom bash prompt
     $HOME/.bash_profile.local # Local and private settings not under version control (e.g. git credentials)
