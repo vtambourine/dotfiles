@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DOTFILES_DIR=$HOME/dotfiles2
+
+declare -a files=(
+    $DOTFILES_DIR/bash/bash_options # Options
+    $DOTFILES_DIR/bash/bash_exports # Exports
+    $DOTFILES_DIR/bash/bash_aliases # Aliases
+    $DOTFILES_DIR/bash/functions/* # Functions
+    $DOTFILES_DIR/bash/bash_prompt # Custom bash prompt
+    $HOME/.bash_profile.local # Local and private settings not under version control (e.g. git credentials)
+    $DOTFILES_DIR/bash/bash_paths # Path modifications (must source after `.bash_profile.local` in case of custom `brew` location)
+)
+
+# If these files are readable, source them
+for index in ${!files[*]}
+do
+    if [[ -r ${files[$index]} ]]; then
+        source ${files[$index]}
+    fi
+done
+
+unset files

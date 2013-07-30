@@ -90,6 +90,11 @@ mirrorfiles() {
     fi
 
     # Create the necessary symbolic links between the `.dotfiles` and `HOME`
+    # directory. The `bash_profile` sources other files directly from the
+    # `.dotfiles` repository.
+    link "bash/bashrc"        ".bashrc"
+    link "bash/bash_profile"  ".bash_profile"
+    link "bash/inputrc"       ".inputrc"
     link "vim"                ".vim"
     link "vim/vimrc"          ".vimrc"
     link "git/gitattributes"  ".gitattributes"
