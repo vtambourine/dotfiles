@@ -9,7 +9,7 @@ declare -a files=(
     $DOTFILES_DIR/bash/functions/* # Functions
     $DOTFILES_DIR/bash/prompt # Custom bash prompt
     $DOTFILES_DIR/bash/completion # Autocompletion
-    $HOME/.bash_profile.local # Local and private settings not under version control (e.g. git credentials)
+    $HOME/.*.local # Local and private settings not under version control (e.g. git credentials)
     $DOTFILES_DIR/bash/paths # Path modifications (must source after `.bash_profile.local` in case of custom `brew` location)
 )
 

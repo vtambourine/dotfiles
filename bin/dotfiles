@@ -13,8 +13,13 @@ while : ; do
     case "$1" in
         -i | --identity) # Identity file to use in ssh connection
             identity=$2
-            shift;
-            shift;;
+            shift;shift;;
+        -n | --name) # Git author name
+            name=$2
+            shift;shift;;
+        -m | --email) # Git author email
+            email=$2
+            shift;shift;;
         -* | --*)
             printf "$(tput setaf 136)! Warning: Unknown option: $1$(tput sgr0)\n" >&2
             exit 1;;
@@ -83,6 +88,10 @@ mirrorfiles() {
     # Any global git commands in `~/.bash_profile.local` will be written to
     # `.gitconfig`. This prevents them being committed to the repository.
     rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
+
+	# Setup Git creditnails if provided
+    if [[ $name ]]; then echo "git config --global user.name \"$name\"" > ${HOME}/.git_creditnails.local; fi
+    if [[ $email ]]; then echo "git config --global user.email \"$email\"" >> ${HOME}/.git_creditnails.local; fi
 
     # Force remove the vim directory if it's already there.
     if [ -e "${HOME}/.vim" ]; then
