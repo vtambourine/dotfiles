@@ -32,7 +32,7 @@ done
 if [ $# -gt 0 ]; then
     while [ $1 ]; do
 	    printf "$(tput setaf 7)Deploying dotfiles on $1...$(tput sgr0)\n"
-        ssh ${identity:+"-i $identity"} $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s"
+        ssh ${identity:+"-i $identity"} $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s -- ${name:+"--name \"$name\""} ${email:+"--email \"$email\""}"
         shift
     done
     exit 0
