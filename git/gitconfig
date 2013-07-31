@@ -82,6 +82,9 @@
     whitespace = fix
 
 [core]
+    # Use vim as default editor
+    editor = vim
+
     # Use custom `.gitignore` and `.gitattributes`
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
