@@ -12,6 +12,8 @@ if has("autocmd")
     filetype indent on
     filetype plugin on
 
+    set omnifunc=syntaxcomplete#Complete
+
     " Languages with specific tabs/space requirements
     autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
     " Automatically strip trailing whitespace on file save
