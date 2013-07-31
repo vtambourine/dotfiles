@@ -3,14 +3,13 @@
 # Directories to be prepended to PATH
 declare -a dirs_to_prepend=(
     # Ensure that this bins always takes precedence over `/usr/bin`
-    "~/bin"
     "/usr/local/bin"
+    "$HOME/bin"
 )
 
 # Directories to be appended to PATH
 declare -a dirs_to_append=(
     "/usr/bin"
-    "$HOME/bin"
     "$HOME/.dotfiles/bin"
     "./node_modules/.bin" # Add local npm-installed package bin
     "/usr/local/share/npm/bin" # Add npm-installed package bin
