@@ -63,15 +63,15 @@ if ! is_git_repo; then
     # Reset the index and working tree to the fetched HEAD
     # (submodules are cloned in the subsequent sync step)
     git reset --hard FETCH_HEAD
+    # Remove any untracked files
+    #git clean -fd
 # Update git repository if it's clean
 elif is_clean_repo; then
     printf "••• Syncing dotfiles...\n"
-    git fetch origin ${DOTFILES_GIT_BRANCH}
-    # Reset the index and working tree to the fetched HEAD
-    # (submodules are cloned in the subsequent sync step)
-    git reset --hard FETCH_HEAD
-    # Remove any untracked files
-    #git clean -fd
+    # Pull down the latest changes
+    git pull --rebase origin master
+    # Update submodules
+    git submodule update --recursive --init --quiet
 # Prevent local changes from being deleted
 else
     printf "××× Git repository has uncommited changes.\n"
