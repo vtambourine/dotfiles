@@ -31,14 +31,14 @@ done
 # Deploy dotfiles on the remote host if one is provided
 if [ $# -gt 0 ]; then
     while [ $1 ]; do
-	    printf "$(tput setaf 7)Deploying dotfiles on $1...$(tput sgr0)\n"
+        printf "$(tput setaf 7)Deploying dotfiles on $1...$(tput sgr0)\n"
         ssh ${identity:+"-i $identity"} $1 -- "curl -kfsSL $DOTFILES_BOOTSTRAP \$1 | bash -s -- ${name:+"--name \"$name\""} ${email:+"--email \"$email\""}"
         shift
     done
     exit 0
 fi
 
-# If missing, download ad extract dotfiles repository
+# If missing, download and extract dotfiles repository
 if [[ ! -d ${DOTFILES_DIRECTORY} ]]; then
     printf "$(tput setaf 7)Downloading dotfiles...$(tput sgr0)\n"
     mkdir ${DOTFILES_DIRECTORY}
@@ -76,7 +76,7 @@ elif is_clean_repo; then
 else
     printf "××× Git repository has uncommited changes.\n"
     printf "××× Please, commit or stash them before continue.\n"
-    exit 1
+    #exit 1
 fi
 
 link() {
@@ -90,9 +90,10 @@ mirrorfiles() {
     # `.gitconfig`. This prevents them being committed to the repository.
     rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
 
-	# Setup Git creditnails if provided
-    if [[ $name ]]; then echo "git config --global user.name \"$name\"" > ${HOME}/.git_creditnails.local; fi
-    if [[ $email ]]; then echo "git config --global user.email \"$email\"" >> ${HOME}/.git_creditnails.local; fi
+	# Setup Git credentials if provided
+    GIT_CREDENTIALS="${HOME}/.git_credentials.local"
+    if [[ $name ]]; then echo "git config --global user.name \"$name\"" > $GIT_CREDENTIALS; fi
+    if [[ $email ]]; then echo "git config --global user.email \"$email\"" >> $GIT_CREDENTIALS; fi
 
     # Force remove the vim directory if it's already there.
     if [ -e "${HOME}/.vim" ]; then
@@ -110,7 +111,7 @@ mirrorfiles() {
     link "git/gitattributes"  ".gitattributes"
     link "git/gitignore"      ".gitignore"
 
-    printf "••• Dotfiles update complete!"
+    printf "••• Dotfiles update complete!\n"
 }
 
 mirrorfiles
