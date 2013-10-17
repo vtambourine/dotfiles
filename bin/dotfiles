@@ -2,7 +2,7 @@
 
 set -e
 
-DOTFILES_DIRECTORY="${HOME}/dotfiles"
+DOTFILES_DIRECTORY="${HOME}/.dotfiles"
 DOTFILES_GIT_REMOTE="https://github.com/vtambourine/dotfiles.git"
 DOTFILES_GIT_BRANCH="master"
 DOTFILES_BOOTSTRAP="${DOTFILES_GIT_REMOTE%.git}/raw/${DOTFILES_GIT_BRANCH}/bin/`basename $0`"
