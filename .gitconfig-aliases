@@ -1,0 +1,41 @@
+[alias]
+	# Branch (b)
+	b = branch
+	ba = branch --all
+
+	# Commit (c)
+	c = commit
+	ca = commit --all
+	cm = commit --message
+	cam = commit --all --message
+	cf = commit --amend --reuse-message HEAD
+	cF = commit --amend
+
+	# Index (i)
+	id = diff --cached
+	idw = diff --cached --word-diff
+
+	# Log (l, g)
+	g = log --topo-order --graph --pretty=nice
+    ga = log --topo-order --graph --all --pretty=nice
+
+	# Rebase (r)
+	r = rebase
+	ra = rebase --abort
+	rc = rebase --continue
+	ri = rebase --interactive
+	rs = rebase --skip
+
+	# Working Copy (w)
+	s = status --short
+	wd = diff --no-ext-diff
+	wdw = diff --no-ext-diff --word-diff
+	wr = reset --soft
+	wR = reset --hard
+
+
+[pretty]
+    # tut: http://gitimmersion.com/lab_10.html
+    # ref: http://linux.die.net/man/1/git-log
+    # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+    nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
