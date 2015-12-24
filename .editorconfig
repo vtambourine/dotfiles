@@ -1,2 +1,6 @@
+[**]
+indent_style = space
+indent_size = 2
+
 [.git*]
 indent_style = tab

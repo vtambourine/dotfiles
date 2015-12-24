@@ -33,6 +33,7 @@
 	wr = reset --soft
 	wR = reset --hard
 
+	co = checkout
 
 [pretty]
     # tut: http://gitimmersion.com/lab_10.html
