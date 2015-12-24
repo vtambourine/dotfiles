@@ -3,7 +3,7 @@ function ..   ; cd .. ; end
 function ...  ; cd ../.. ; end
 function .... ; cd ../../.. ; end
 
-function ls ; ls -al ; end
+function ls ; command ls -al ; end
 
 function g ; git $argv ; end
 

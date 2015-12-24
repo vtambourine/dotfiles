@@ -51,7 +51,7 @@
 	precomposeunicode = false
 
 [credential]
-    helper = osxkeychain
+	helper = osxkeychain
 
 [diff]
 	# Detect copies as well as renames
