@@ -5,15 +5,16 @@
 
 	# Commit (c)
 	c = commit
+	ci = commit
 	ca = commit --all
 	cm = commit --message
 	cam = commit --all --message
 	cf = commit --amend --reuse-message HEAD
-	cF = commit --amend
+	cF = commit --amend --no-edit
 
 	# Index (i)
 	id = diff --cached
-	idw = diff --cached --word-diff
+	idw = diff --cached --word-diff=color
 
 	# Log (l, g)
 	g = log --topo-order --graph --pretty=nice
@@ -29,7 +30,7 @@
 	# Working Copy (w)
 	s = status --short
 	wd = diff --no-ext-diff
-	wdw = diff --no-ext-diff --word-diff
+	wdw = diff --no-ext-diff --word-diff=color
 	wr = reset --soft
 	wR = reset --hard
 
