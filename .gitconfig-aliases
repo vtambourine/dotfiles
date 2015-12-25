@@ -19,8 +19,8 @@
 	idw = diff --cached --word-diff=color
 
 	# Log (l, g)
-	g = log --topo-order --graph --pretty=nice
-    ga = log --topo-order --graph --all --pretty=nice
+	g = log --date-order --graph --pretty=nice
+	ga = log --date-order --graph --all --pretty=nice
 
 	# Rebase (r)
 	r = rebase
