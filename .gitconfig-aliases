@@ -7,6 +7,8 @@
 	c = commit
 	ci = commit
 	ca = commit --all
+	cA = !git add --all && git commit --verbose
+	cAm = !git add --all && git commit --verbose --message
 	cm = commit --message
 	cam = commit --all --message
 	cf = commit --amend --reuse-message HEAD
