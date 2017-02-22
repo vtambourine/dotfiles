@@ -1,0 +1,21 @@
+# Automatically prepend `cd` to directory names.
+
+shopt -s autocd
+
+# ...
+
+shopt -s cdspell
+shopt -s checkwinsize
+shopt -s histappend
+
+# Do not attempt to search the PATH for possible completions when
+# completion is attempted on an empty line.
+
+shopt -s no_empty_cmd_completion
+
+# Match filenames in a case-insensitive fashion when performing
+# filename expansion.
+
+shopt -s nocaseglob
+
+shopt -s cmdhist
