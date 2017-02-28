@@ -1,0 +1,36 @@
+# Specifies the User-Agent string to send to the HTTP server.
+
+user-agent = "Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+# Sends the "Referrer Page" information to the HTTP server.
+# Makes curl automatically set the previous URL when it follows a Location: header.
+
+referer = ";auto"
+
+# Maximum time in seconds that you allow curl's connection to take.
+
+connect-timeout = 10
+
+# Maximum time in seconds that you allow the whole operation to take.
+
+max-time = 90
+
+# Make curl display transfer progress as a simple progress bar instead of the standard, more informational, meter.
+
+progress-bar
+
+# Makes curl verbose during the operation.
+
+verbose
+
+# When used with -s, --silent, it makes curl show an error message if it fails.
+
+show-error
+
+# Makes curl attempt to figure out the timestamp of the remote file, and if that is available make the local file get that same timestamp.
+
+remote-time
+
+# Tells curl to resolve names to IPv4 addresses only.
+
+ipv4
