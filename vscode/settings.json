@@ -1,0 +1,7 @@
+{
+  "editor.insertSpaces": false,
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false
+}
